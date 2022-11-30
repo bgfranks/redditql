@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 // icons
 import {
@@ -18,6 +19,8 @@ import {
 } from '@heroicons/react/24/outline'
 
 export default function Header() {
+  const { data: session } = useSession()
+
   return (
     <div className=' sticky top-0 z-50 flex bg-white px-4 py-4 shadow-sm'>
       <div className='relative h-10 w-20 flex-shrink-0 cursor-pointer'>
@@ -58,17 +61,41 @@ export default function Header() {
         <Bars3Icon className='icon' />
       </div>
       {/* Sign in/out */}
-      <div className='hidden lg:flex items-center space-x-2 border border-gray-100 cursor-pointer p-2'>
-        <div className='relative h-5 w-5 flex-shrink-0'>
-          <Image
-            src='https://links.papareact.com/23l'
-            objectFit='contain'
-            layout='fill'
-            alt='Reddit Alien'
-          />
+      {session ? (
+        <div
+          onClick={() => signOut()}
+          className='hidden lg:flex items-center space-x-2 border border-gray-100 cursor-pointer p-2'
+        >
+          <div className='relative h-5 w-5 flex-shrink-0'>
+            <Image
+              src='https://links.papareact.com/23l'
+              objectFit='contain'
+              layout='fill'
+              alt='Reddit Alien'
+            />
+          </div>
+          <div className='flex-1 text-xs'>
+            <p className='truncate'>{session?.user?.name}</p>
+            <p className='text-gray-400'>Sign out</p>
+          </div>
+          <ChevronDownIcon className='h-5 flex-shrink-0 text-gray-400' />
         </div>
-        <p className='text-gray-400'>Sign in</p>
-      </div>
+      ) : (
+        <div
+          onClick={() => signIn()}
+          className='hidden lg:flex items-center space-x-2 border border-gray-100 cursor-pointer p-2'
+        >
+          <div className='relative h-5 w-5 flex-shrink-0'>
+            <Image
+              src='https://links.papareact.com/23l'
+              objectFit='contain'
+              layout='fill'
+              alt='Reddit Alien'
+            />
+          </div>
+          <p className='text-gray-400'>Sign in</p>
+        </div>
+      )}
     </div>
   )
 }
