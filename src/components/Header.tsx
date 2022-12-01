@@ -74,9 +74,8 @@ export default function Header() {
               alt='Reddit Alien'
             />
           </div>
-          <div className='flex-1 text-xs'>
+          <div className='flex-1 text-sm'>
             <p className='truncate'>{session?.user?.name}</p>
-            <p className='text-gray-400'>Sign out</p>
           </div>
           <ChevronDownIcon className='h-5 flex-shrink-0 text-gray-400' />
         </div>
