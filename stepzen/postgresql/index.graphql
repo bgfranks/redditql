@@ -18,7 +18,7 @@ type Post {
   id: ID!
   image: String
   subreddit_id: ID
-  tittle: String
+  title: String
   username: String
 }
 
@@ -91,7 +91,7 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-      SELECT "body", "created_at", "id", "image", "subreddit_id", "tittle", "username" FROM "post" LIMIT $1 OFFSET $2
+      SELECT "body", "created_at", "id", "image", "subreddit_id", "title", "username" FROM "post" LIMIT $1 OFFSET $2
       """
       configuration: "postgresql_config"
     )
@@ -101,6 +101,15 @@ type Query {
       type: "postgresql"
       schema: "public"
       table: "subreddit"
+      configuration: "postgresql_config"
+    )
+  getSubredditListByTopic(topic: String!): [Subreddit]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      select * from "subreddit" where "topic" = $1
+      """
       configuration: "postgresql_config"
     )
   getSubredditPaginatedList(first: Int, after: Int): [Subreddit]
@@ -167,7 +176,7 @@ type Mutation {
   " Mutations for type 'Post' "
   deletePost(
     body: String!
-    tittle: String!
+    title: String!
     subreddit_id: ID!
     id: ID!
     created_at: DateTime!
@@ -183,9 +192,8 @@ type Mutation {
     )
   insertPost(
     body: String
-    tittle: String
+    title: String
     subreddit_id: ID
-    created_at: DateTime
     username: String
     image: String
   ): Post
@@ -205,7 +213,7 @@ type Mutation {
       dml: DELETE
       configuration: "postgresql_config"
     )
-  insertSubreddit(topic: String, created_at: DateTime): Subreddit
+  insertSubreddit(topic: String): Subreddit
     @dbquery(
       type: "postgresql"
       schema: "public"
