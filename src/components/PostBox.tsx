@@ -91,8 +91,6 @@ export default function PostBox() {
             username: session?.user?.name,
           },
         })
-
-        console.log('new post', newPost)
       }
 
       // after post has been added
