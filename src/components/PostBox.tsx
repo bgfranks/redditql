@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast'
 // gql
 import { useMutation } from '@apollo/client'
 import { ADD_POST, ADD_SUBREDDIT } from '../../graphql/mutations'
-import { GET_SUBREDDIT_BY_TOPIC } from '../../graphql/queries'
+import { GET_ALL_POSTS, GET_SUBREDDIT_BY_TOPIC } from '../../graphql/queries'
 import { client } from '../../apollo-client'
 
 // components
@@ -27,7 +27,9 @@ export default function PostBox() {
   const { data: session } = useSession()
 
   // mutations
-  const [addPost] = useMutation(ADD_POST)
+  const [addPost] = useMutation(ADD_POST, {
+    refetchQueries: [GET_ALL_POSTS, 'getPostList'],
+  })
   const [addSubreddit] = useMutation(ADD_SUBREDDIT)
 
   const [imageBoxOpen, setImageBoxOpen] = useState<boolean>(false)
