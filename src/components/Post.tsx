@@ -79,7 +79,7 @@ export default function Post({ post, postLoading }: Props) {
       0
     )
 
-    if (votes.length === 0) return 0
+    if (votes?.length === 0) return 0
 
     if (displayNumber === 0) {
       return votes[0]?.upvote ? 1 : -1
