@@ -40,7 +40,6 @@ export default function PostPage() {
   } = useForm<FormData>()
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    console.log(data)
     const notification = toast.loading('Adding your comment...')
 
     await addComment({
@@ -58,10 +57,9 @@ export default function PostPage() {
     })
   }
 
-  console.log(data)
   return (
     <div className={`mx-auto my-7 max-w-5xl`}>
-      <Post post={post} loading={loading} />
+      <Post post={post} postLoading={loading} />
       <div
         className={`rounded-b-md border border-t-0 border-gray-300 bg-white p-5 pl-16 -mt-1 ${
           loading ? 'hidden' : ''
