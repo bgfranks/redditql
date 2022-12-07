@@ -18,10 +18,11 @@ import {
 
 type Props = {
   post: Post
+  loading?: boolean
 }
 
-export default function Post({ post }: Props) {
-  if (!post)
+export default function Post({ post, loading }: Props) {
+  if (loading)
     return (
       <div className='flex w-full items-center justify-center p-10 text-xl'>
         <Jelly size={50} color='#FF4501' />
