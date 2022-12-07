@@ -5,7 +5,7 @@ import { GET_ALL_POSTS, GET_POST_LIST_BY_TOPIC } from '../../graphql/queries'
 import Post from './Post'
 
 type Props = {
-  topic: string
+  topic?: string
 }
 
 export default function Feed({ topic }: Props) {

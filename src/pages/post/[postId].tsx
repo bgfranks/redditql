@@ -11,7 +11,6 @@ import { ADD_COMMENT } from '../../../graphql/mutations'
 
 // components
 import Post from '../../components/Post'
-import { text } from 'node:stream/consumers'
 import Avatar from '../../components/Avatar'
 
 type FormData = {
@@ -61,15 +60,19 @@ export default function PostPage() {
 
   console.log(data)
   return (
-    <div className='mx-auto my-7 max-w-5xl'>
-      <Post post={post} />
-      <div className='rounded-b-md border border-t-0 border-gray-300 bg-white p-5 pl-16 -mt-1'>
+    <div className={`mx-auto my-7 max-w-5xl`}>
+      <Post post={post} loading={loading} />
+      <div
+        className={`rounded-b-md border border-t-0 border-gray-300 bg-white p-5 pl-16 -mt-1 ${
+          loading ? 'hidden' : ''
+        }`}
+      >
         <p className='text-sm'>
           Comment as <span className='text-red-500'>{session?.user?.name}</span>
         </p>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className='flex flex-col space-y-2'
+          className={`flex flex-col space-y-2`}
         >
           <textarea
             {...register('comment')}
@@ -88,8 +91,12 @@ export default function PostPage() {
           </button>
         </form>
       </div>
-      <div className='-my-5 rounded-b-md border border-top-0 border-gray-300 bg-white py-5 px-10'>
-        <hr className='py-2' />
+      <div
+        className={`-my-5 rounded-b-md border border-t-0 border-gray-300 bg-white py-5 px-10 ${
+          loading ? 'hidden' : ''
+        }`}
+      >
+        <hr className={`py-2`} />
         {post?.comments.map((comment) => (
           <div
             className='relative flex items-center space-x-2 space-y-5'
@@ -99,7 +106,7 @@ export default function PostPage() {
             <div className='z-50'>
               <Avatar seed={comment.username} />
             </div>
-            <div className='flext flex-col'>
+            <div className='flex flex-col'>
               <p className='py-2 text-xs text-gray-400'>
                 <span className='font-semibold text-gray-600'>
                   {comment.username}
