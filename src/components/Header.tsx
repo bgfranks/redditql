@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { signIn, signOut, useSession } from 'next-auth/react'
 
 // icons
@@ -22,14 +23,16 @@ export default function Header() {
   const { data: session } = useSession()
 
   return (
-    <div className=' sticky top-0 z-50 flex bg-white px-4 py-4 shadow-sm'>
+    <div className=' sticky top-0 z-50 flex bg-white px-4 py-4 shadow-sm items-center'>
       <div className='relative h-10 w-20 flex-shrink-0 cursor-pointer'>
-        <Image
-          objectFit='contain'
-          src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Reddit_logo_new.svg/974px-Reddit_logo_new.svg.png?20220313085316'
-          layout='fill'
-          alt='reddit logo'
-        />
+        <Link href='/'>
+          <Image
+            objectFit='contain'
+            src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Reddit_logo_new.svg/974px-Reddit_logo_new.svg.png?20220313085316'
+            layout='fill'
+            alt='reddit logo'
+          />
+        </Link>
       </div>
       <div className='mx-7 flex items-center xl:min-w-[300px]'>
         <HomeIcon className='h-5 w-5' />
